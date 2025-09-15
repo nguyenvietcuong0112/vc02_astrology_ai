@@ -1,14 +1,28 @@
 
-import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/src/app/app.dart';
+import 'package:myapp/src/core/router/app_router.dart';
 import 'package:myapp/src/core/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+// --- Language Provider ---
+class LanguageProvider with ChangeNotifier {
+  Locale _locale = const Locale('vi');
+  Locale get locale => _locale;
+
+  void setLocale(Locale locale) {
+    if (!AppLocalizations.supportedLocales.contains(locale)) return;
+    _locale = locale;
+    notifyListeners();
+  }
+}
+
 
 // --- Handlers ---
 
@@ -37,13 +51,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  // --- App Check ---
-  // await FirebaseAppCheck.instance
-  // // Your personal reCaptcha public key goes here:
-  //     .activate(
-  //   androidProvider: AndroidProvider.debug,
-  //   appleProvider: AppleProvider.debug,
-  // );
 
   // --- Authentication ---
   await FirebaseAuth.instance.signInAnonymously();
@@ -100,10 +107,38 @@ void main() async {
 
 
   runApp(
-    ChangeNotifierProvider(
-      create: (context) => ThemeProvider(),
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ThemeProvider()),
+        ChangeNotifierProvider(create: (context) => LanguageProvider()),
+      ],
       child: const AstrologyApp(),
     ),
   );
 }
 
+class AstrologyApp extends StatelessWidget {
+  const AstrologyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    final themeProvider = Provider.of<ThemeProvider>(context);
+    final languageProvider = Provider.of<LanguageProvider>(context);
+
+    return MaterialApp.router(
+      title: 'Chiêm Tinh AI',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: themeProvider.themeMode,
+      locale: languageProvider.locale,
+      localizationsDelegates: [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: AppLocalizations.supportedLocales,
+      routerConfig: AppRouter.router,
+    );
+  }
+}

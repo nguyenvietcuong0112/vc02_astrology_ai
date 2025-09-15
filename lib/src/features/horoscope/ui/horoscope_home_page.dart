@@ -6,6 +6,9 @@ import 'package:myapp/src/features/horoscope/ui/horoscope_result_card.dart';
 import 'package:myapp/src/features/horoscope/ui/widgets/input_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:myapp/main.dart'; // Assuming LanguageProvider is in main.dart
 
 class HoroscopeHomePage extends StatefulWidget {
   const HoroscopeHomePage({super.key});
@@ -52,13 +55,16 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
   }
 
   Future<void> _getHoroscope({bool isPremium = false}) async {
+    // Get the localization object first
+    final l10n = AppLocalizations.of(context)!;
+
     if (_dateController.text.isEmpty ||
         _timeController.text.isEmpty ||
         _placeController.text.isEmpty) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Vui lòng nhập đầy đủ thông tin ngày sinh."),
+        SnackBar(
+          content: Text(l10n.homePageSubtitle), // Re-using a relevant string
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -71,11 +77,14 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
     });
 
     try {
+      final langCode = Provider.of<LanguageProvider>(context, listen: false).locale.languageCode;
+
       final resultString = await getHoroscopeFromAI(
         date: _dateController.text,
         time: _timeController.text,
         place: _placeController.text,
         isPremium: isPremium,
+        language: langCode, // Pass the language code
       );
       final decodedResult = jsonDecode(resultString);
 
@@ -100,14 +109,13 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
         _isLoading = false;
       });
     } catch (e) {
-      // This catches errors from jsonDecode or other synchronous issues
       setState(() {
         _isLoading = false;
       });
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(
-          content: Text("Đã xảy ra lỗi. Vui lòng thử lại."),
+        SnackBar(
+          content: Text(l10n.appName), // Re-using a relevant string
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -116,10 +124,12 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final l10n = AppLocalizations.of(context)!;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Trợ lý Chiêm tinh AI',
+          l10n.appName,
           style: GoogleFonts.sacramento(
             fontSize: 32,
             fontWeight: FontWeight.w500,
@@ -128,6 +138,24 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
+        actions: [
+          PopupMenuButton<Locale>(
+            onSelected: (Locale locale) {
+              Provider.of<LanguageProvider>(context, listen: false).setLocale(locale);
+            },
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<Locale>>[
+              PopupMenuItem<Locale>(
+                value: const Locale('vi'),
+                child: Text(l10n.vietnamese),
+              ),
+              PopupMenuItem<Locale>(
+                value: const Locale('en'),
+                child: Text(l10n.english),
+              ),
+            ],
+            icon: const Icon(Icons.language),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -137,7 +165,7 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
             children: [
               const SizedBox(height: 20),
               Text(
-                "Khám phá con đường vũ trụ của bạn",
+                l10n.homePageTitle, // Localized
                 textAlign: TextAlign.center,
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 28,
@@ -146,20 +174,20 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              const Text(
-                "Nhập thông tin ngày sinh của bạn để có được lá số tử vi được cá nhân hóa.",
+              Text(
+                l10n.homePageSubtitle, // Localized
                 textAlign: TextAlign.center,
-                style: TextStyle(color: Colors.white70, fontSize: 16),
+                style: const TextStyle(color: Colors.white70, fontSize: 16),
               ),
               const SizedBox(height: 40),
               InputField(
-                  controller: _dateController, label: "Ngày sinh", hint: "DD/MM/YYYY"),
+                  controller: _dateController, label: l10n.dateOfBirth, hint: l10n.dateOfBirthHint),
               const SizedBox(height: 20),
               InputField(
-                  controller: _timeController, label: "Giờ sinh", hint: "HH:MM"),
+                  controller: _timeController, label: l10n.timeOfBirth, hint: l10n.timeOfBirthHint),
               const SizedBox(height: 20),
               InputField(
-                  controller: _placeController, label: "Nơi sinh", hint: "Thành phố, Quốc gia"),
+                  controller: _placeController, label: l10n.placeOfBirth, hint: l10n.placeOfBirthHint),
               const SizedBox(height: 40),
               _isLoading
                   ? const Center(child: CircularProgressIndicator())
@@ -167,7 +195,7 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
                       children: [
                         ElevatedButton(
                           onPressed: () => _getHoroscope(isPremium: false),
-                          child: const Text("Xem lá số tử vi"),
+                          child: Text(l10n.getHoroscopeButton), // Localized
                         ),
                         const SizedBox(height: 15),
                         ElevatedButton(
@@ -176,12 +204,12 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () => _getHoroscope(isPremium: true),
-                          child: const Row(
+                          child: Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              Icon(Icons.star, size: 16),
-                              SizedBox(width: 8),
-                              Text("Xem lá số tử vi cao cấp"),
+                              const Icon(Icons.star, size: 16),
+                              const SizedBox(width: 8),
+                              Text(l10n.getHoroscopeButton), // Localized (re-used)
                             ],
                           ),
                         ),

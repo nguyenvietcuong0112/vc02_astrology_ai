@@ -1,0 +1,27 @@
+
+{
+  "@@locale": "vi",
+  "appName": "Chiêm Tinh AI",
+  "homePageTitle": "Tử Vi Của Bạn",
+  "homePageSubtitle": "Nhập thông tin ngày sinh của bạn để có được lá số tử vi được cá nhân hóa.",
+  "dateOfBirth": "Ngày sinh",
+  "dateOfBirthHint": "DD/MM/YYYY",
+  "timeOfBirth": "Giờ sinh",
+  "timeOfBirthHint": "HH:MM",
+  "placeOfBirth": "Nơi sinh",
+  "placeOfBirthHint": "Thành phố, Quốc gia",
+  "getHoroscopeButton": "Xem Tử Vi",
+  "language": "Ngôn ngữ",
+  "vietnamese": "Tiếng Việt",
+  "english": "Tiếng Anh",
+  "shareHoroscope": "Chia sẻ Tử Vi",
+  "shareSubject": "Tử vi hàng ngày của tôi!",
+  "overview": "Tổng quan",
+  "love": "Tình yêu",
+  "career": "Sự nghiệp",
+  "finance": "Tài chính",
+  "advice": "Lời khuyên",
+  "health": "Sức khỏe",
+  "deeperAnalysis": "Phân tích chuyên sâu",
+  "premiumUpgrade": "Nâng cấp lên Premium để có phân tích sâu hơn về sức khỏe và các khía cạnh khác!"
+}
