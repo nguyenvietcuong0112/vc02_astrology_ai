@@ -63,7 +63,10 @@ class _LibraryPageState extends State<LibraryPage> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (context) => const Center(child: CircularProgressIndicator()),
+      builder: (context) => const Material(
+        color: Colors.transparent,
+        child: Center(child: CircularProgressIndicator()),
+      ),
     );
   }
 
