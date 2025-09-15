@@ -1,3 +1,4 @@
+
 {
   "appName": "Astrology AI",
   "vietnamese": "Vietnamese",
@@ -47,5 +48,8 @@
   "resultsTitle": "Results",
   "scoreLabel": "Score",
   "summaryLabel": "Summary",
-  "adviceLabel": "Advice"
+  "adviceLabel": "Advice",
+  "homeTab": "Home",
+  "historyTab": "History",
+  "libraryTab": "Library"
 }

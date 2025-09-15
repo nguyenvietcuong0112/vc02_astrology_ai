@@ -35,6 +35,7 @@ class _MainScreenState extends State<MainScreen> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
     final themeProvider = Provider.of<ThemeProvider>(context);
+    final theme = Theme.of(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -43,6 +44,7 @@ class _MainScreenState extends State<MainScreen> {
           style: GoogleFonts.sacramento(
             fontSize: 32,
             fontWeight: FontWeight.w500,
+            color: theme.colorScheme.onPrimaryContainer,
           ),
         ),
         centerTitle: true,
@@ -76,26 +78,38 @@ class _MainScreenState extends State<MainScreen> {
           ),
         ],
       ),
-      body: Center(
+      body: AnimatedSwitcher(
+        duration: const Duration(milliseconds: 300),
+        transitionBuilder: (Widget child, Animation<double> animation) {
+          return FadeTransition(opacity: animation, child: child);
+        },
         child: _widgetOptions.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
+        items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Trang chủ',
+            icon: const Icon(Icons.wb_sunny_outlined),
+            activeIcon: const Icon(Icons.wb_sunny),
+            label: l10n.homeTab,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Lịch sử',
+            icon: const Icon(Icons.history_outlined),
+            activeIcon: const Icon(Icons.history),
+            label: l10n.historyTab,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.menu_book),
-            label: 'Thư viện',
+            icon: const Icon(Icons.menu_book_outlined),
+            activeIcon: const Icon(Icons.menu_book),
+            label: l10n.libraryTab,
           ),
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: theme.colorScheme.primary,
+        unselectedItemColor: Colors.grey,
+        showUnselectedLabels: true,
+        selectedLabelStyle: const TextStyle(fontWeight: FontWeight.bold),
       ),
     );
   }

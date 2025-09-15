@@ -1,3 +1,4 @@
+
 {
   "appName": "Chiêm Tinh AI",
   "vietnamese": "Tiếng Việt",
@@ -47,5 +48,8 @@
   "resultsTitle": "Kết Quả",
   "scoreLabel": "Điểm",
   "summaryLabel": "Tóm tắt",
-  "adviceLabel": "Lời khuyên"
+  "adviceLabel": "Lời khuyên",
+  "homeTab": "Trang chủ",
+  "historyTab": "Lịch sử",
+  "libraryTab": "Thư viện"
 }
