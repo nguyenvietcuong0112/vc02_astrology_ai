@@ -1,35 +1,56 @@
-# Blueprint
+# Bản Kế Hoạch (Blueprint)
 
-## Overview
+## Tổng Quan
 
-This is a Flutter application that provides personalized horoscopes to users based on their birth information. The application uses the Gemini API to generate the horoscopes.
+Đây là một ứng dụng Flutter nhằm cung cấp các lá số tử vi được cá nhân hóa cho người dùng. Ứng dụng sử dụng API Gemini để tạo lá số, đồng thời tích hợp các tính năng như lịch sử xem, ghi chú cá nhân và một thư viện kiến thức chiêm tinh, tạo ra một trải nghiệm toàn diện và có chiều sâu.
 
-## Features
+## Các Tính Năng Đã Hoàn Thành
 
--   Users can enter their date, time, and place of birth.
--   The application saves the user's birth information for future use.
--   The application generates a personalized horoscope using the Gemini API.
--   The application supports both a standard and a premium horoscope.
--   The application has a dark and a light theme.
--   Users can share their generated horoscope with other apps.
--   **User Authentication:** Users can sign in to the app to have their birth information saved to their account.
--   **Push Notifications:** Users will receive daily horoscope notifications.
+-   **Nhập và Lưu Thông Tin:** Người dùng có thể nhập ngày, giờ, nơi sinh và thông tin này được lưu lại cho các lần sử dụng sau.
+-   **Luận Giải Tử Vi bằng AI:** Sử dụng API Gemini để tạo lá số tử vi cá nhân hóa (cả dạng tiêu chuẩn và cao cấp).
+-   **Giao Diện Tùy Chỉnh:** Hỗ trợ giao diện sáng (light) và tối (dark), cùng khả năng chuyển đổi ngôn ngữ (Việt/Anh).
+-   **Chia Sẻ:** Người dùng có thể chia sẻ lá số của mình.
+-   **Xác thực & Thông báo:** Tự động đăng nhập ẩn danh và thiết lập nhận thông báo đẩy qua FCM.
+-   **Kiến trúc & Điều hướng:** Tái cấu trúc ứng dụng với kiến trúc rõ ràng, sử dụng `StatefulWidget` cho các màn hình và `BottomNavigationBar` để điều hướng giữa các tính năng chính (Trang chủ, Lịch sử, Thư viện).
+-   **Lịch sử Xem Tử Vi:** Người dùng có thể xem lại danh sách các lá số đã tạo trước đây, được lưu trữ cục bộ bằng `sqflite`.
 
-## Project Structure
+## Cấu Trúc Dự Án
 
--   `lib/main.dart`: Entry point of the application.
--   `lib/src/app/app.dart`: Contains the `AstrologyApp` widget, which is the root of the application.
--   `lib/src/core/theme/app_theme.dart`: Contains the `ThemeProvider` and the `AppTheme` class, which defines the light and dark themes.
--   `lib/src/features/horoscope/services/ai_horoscope_service.dart`: Contains the `getHoroscopeFromAI` function, which calls the Gemini API.
--   `lib/src/features/horoscope/ui/horoscope_home_page.dart`: The main screen of the app, which now handles saving and loading user birth information.
--   `lib/src/features/horoscope/ui/horoscope_result_card.dart`: Displays the horoscope result and includes the share button.
--   `lib/src/features/horoscope/ui/widgets/input_field.dart`: A custom text field widget.
--   `lib/src/features/horoscope/ui/widgets/result_section.dart`: A widget to display a section of the horoscope result.
+-   `lib/main.dart`: Điểm khởi đầu của ứng dụng, quản lý các provider (Theme, Language).
+-   `lib/src/app/main_screen.dart`: Widget chính chứa `BottomNavigationBar` và quản lý các màn hình con.
+-   `lib/src/core/router/app_router.dart`: (Không còn sử dụng) Điều hướng hiện được quản lý bởi `MainScreen`.
+-   `lib/src/core/theme/app_theme.dart`: Định nghĩa giao diện sáng/tối.
+-   `lib/src/features/horoscope/services/ai_horoscope_service.dart`: Chứa hàm gọi API Gemini.
+-   `lib/src/features/horoscope/ui/horoscope_home_page.dart`: Màn hình chính (tab Trang chủ).
+-   `lib/src/features/history/services/database_helper.dart`: Lớp quản lý cơ sở dữ liệu `sqflite`.
+-   `lib/src/features/history/ui/history_page.dart`: Màn hình hiển thị lịch sử (tab Lịch sử).
+-   `lib/src/features/library/ui/library_page.dart`: Màn hình chờ cho Thư viện.
+-   `l10n.yaml` & `lib/l10n/`: Cấu hình và tệp bản dịch cho đa ngôn ngữ.
 
-## Current Task: Remove Localization
+---
 
-I will perform the following steps to remove the localization feature:
-1.  **Update `pubspec.yaml`**: Remove the `flutter_localizations` dependency and the `generate: true` flag.
-2.  **Delete Localization Files**: Delete the `l10n.yaml` file and the `lib/l10n` directory.
-3.  **Update Application Code**: Remove all references to `AppLocalizations` and replace them with hard-coded Vietnamese strings throughout the application, primarily in the UI files.
-4.  **Refactor `MaterialApp`**: Remove the `localizationsDelegates` and `supportedLocales` properties from the `MaterialApp` widget in `lib/src/app/app.dart`.
+## Nhiệm Vụ Tiếp Theo: Tích hợp Ghi Chú Cá Nhân
+
+**Mục tiêu:** Cho phép người dùng thêm các suy nghĩ, ghi chép cá nhân vào mỗi lá số, biến ứng dụng thành một cuốn nhật ký chiêm tinh. Tính năng này sẽ làm tăng sự gắn kết và cá nhân hóa trải nghiệm.
+
+### Kế hoạch triển khai:
+
+1.  **Cập nhật Cơ sở dữ liệu:**
+    -   Sửa đổi bảng `horoscopes` trong `database_helper.dart` để thêm một cột mới: `notes TEXT`.
+    -   Cần một phương thức để xử lý việc nâng cấp cơ sở dữ liệu (từ version 1 lên 2) để không làm mất dữ liệu cũ của người dùng.
+
+2.  **Cập nhật Giao diện người dùng (UI):**
+    -   **Trong màn hình Chi tiết Tử Vi (khi xem từ Lịch sử):**
+        -   Thêm một khu vực để hiển thị ghi chú đã lưu.
+        -   Thêm một nút (ví dụ: `Icon(Icons.edit)`) để cho phép người dùng thêm hoặc chỉnh sửa ghi chú.
+        -   Khi nhấn nút sửa, hiển thị một `AlertDialog` hoặc `TextField` cho phép người dùng nhập văn bản.
+    -   **Lưu Ghi chú:** Khi người dùng lưu ghi chú, tạo một hàm trong `DatabaseHelper` để cập nhật bản ghi tương ứng trong cơ sở dữ liệu.
+
+3.  **Làm mới Giao diện:** Sau khi lưu ghi chú, tự động làm mới lại màn hình chi tiết để hiển thị ghi chú mới.
+
+## Kế Hoạch Tương Lai
+
+-   **Tính năng: Thư viện Chiêm tinh**
+    -   **Mục tiêu:** Cung cấp kiến thức, giúp người dùng hiểu sâu hơn về chiêm tinh.
+    -   **Phần A: Giải thích Thuật ngữ Chiêm tinh:** Tạo màn hình tra cứu thuật ngữ, sử dụng AI để giải thích.
+    -   **Phần B: Xem độ hợp cung hoàng đạo:** Tạo màn hình cho phép người dùng chọn 2 cung và xem phân tích độ hợp từ AI.

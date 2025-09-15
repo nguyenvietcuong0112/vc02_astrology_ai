@@ -62,7 +62,8 @@ import 'app_localizations_vi.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale)
+    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -70,7 +71,8 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate =
+      _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -82,35 +84,48 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
-    delegate,
-    GlobalMaterialLocalizations.delegate,
-    GlobalCupertinoLocalizations.delegate,
-    GlobalWidgetsLocalizations.delegate,
-  ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
+      <LocalizationsDelegate<dynamic>>[
+        delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+      ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('vi')
+    Locale('vi'),
   ];
 
   /// No description provided for @appName.
   ///
   /// In en, this message translates to:
-  /// **'Astro AI'**
+  /// **'Astrology AI'**
   String get appName;
+
+  /// No description provided for @vietnamese.
+  ///
+  /// In en, this message translates to:
+  /// **'Vietnamese'**
+  String get vietnamese;
+
+  /// No description provided for @english.
+  ///
+  /// In en, this message translates to:
+  /// **'English'**
+  String get english;
 
   /// No description provided for @homePageTitle.
   ///
   /// In en, this message translates to:
-  /// **'Your Horoscope'**
+  /// **'Your Personal Horoscope'**
   String get homePageTitle;
 
   /// No description provided for @homePageSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Enter your birth information to get your personalized horoscope.'**
+  /// **'Enter your birth details to reveal your cosmic blueprint.'**
   String get homePageSubtitle;
 
   /// No description provided for @dateOfBirth.
@@ -134,7 +149,7 @@ abstract class AppLocalizations {
   /// No description provided for @timeOfBirthHint.
   ///
   /// In en, this message translates to:
-  /// **'HH:MM'**
+  /// **'HH:MM (24-hour format)'**
   String get timeOfBirthHint;
 
   /// No description provided for @placeOfBirth.
@@ -152,38 +167,26 @@ abstract class AppLocalizations {
   /// No description provided for @getHoroscopeButton.
   ///
   /// In en, this message translates to:
-  /// **'Get Horoscope'**
+  /// **'Get Basic Horoscope'**
   String get getHoroscopeButton;
 
-  /// No description provided for @language.
+  /// No description provided for @getPremiumHoroscopeButton.
   ///
   /// In en, this message translates to:
-  /// **'Language'**
-  String get language;
+  /// **'Get Premium Horoscope'**
+  String get getPremiumHoroscopeButton;
 
-  /// No description provided for @vietnamese.
+  /// No description provided for @horoscopeResults.
   ///
   /// In en, this message translates to:
-  /// **'Vietnamese'**
-  String get vietnamese;
+  /// **'Horoscope Results'**
+  String get horoscopeResults;
 
-  /// No description provided for @english.
+  /// No description provided for @personality.
   ///
   /// In en, this message translates to:
-  /// **'English'**
-  String get english;
-
-  /// No description provided for @shareHoroscope.
-  ///
-  /// In en, this message translates to:
-  /// **'Share Horoscope'**
-  String get shareHoroscope;
-
-  /// No description provided for @shareSubject.
-  ///
-  /// In en, this message translates to:
-  /// **'My daily horoscope!'**
-  String get shareSubject;
+  /// **'Personality'**
+  String get personality;
 
   /// No description provided for @overview.
   ///
@@ -203,6 +206,12 @@ abstract class AppLocalizations {
   /// **'Career'**
   String get career;
 
+  /// No description provided for @health.
+  ///
+  /// In en, this message translates to:
+  /// **'Health'**
+  String get health;
+
   /// No description provided for @finance.
   ///
   /// In en, this message translates to:
@@ -215,26 +224,177 @@ abstract class AppLocalizations {
   /// **'Advice'**
   String get advice;
 
-  /// No description provided for @health.
-  ///
-  /// In en, this message translates to:
-  /// **'Health'**
-  String get health;
-
   /// No description provided for @deeperAnalysis.
   ///
   /// In en, this message translates to:
   /// **'Deeper Analysis'**
   String get deeperAnalysis;
 
+  /// No description provided for @errorHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Error loading history'**
+  String get errorHistory;
+
+  /// No description provided for @noHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'No history found. Get a new horoscope to see it here!'**
+  String get noHistory;
+
+  /// No description provided for @birthInfoLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Birth Info'**
+  String get birthInfoLabel;
+
+  /// No description provided for @atLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'At'**
+  String get atLabel;
+
+  /// No description provided for @viewedOnLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Viewed on'**
+  String get viewedOnLabel;
+
+  /// No description provided for @refreshHistory.
+  ///
+  /// In en, this message translates to:
+  /// **'Refresh'**
+  String get refreshHistory;
+
+  /// No description provided for @errorGeneral.
+  ///
+  /// In en, this message translates to:
+  /// **'An unknown error occurred.'**
+  String get errorGeneral;
+
+  /// No description provided for @errorMissingInput.
+  ///
+  /// In en, this message translates to:
+  /// **'Please fill in all birth details.'**
+  String get errorMissingInput;
+
+  /// No description provided for @errorFetching.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while fetching the reading.'**
+  String get errorFetching;
+
+  /// No description provided for @personalNotes.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal Notes'**
+  String get personalNotes;
+
+  /// No description provided for @editNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Note'**
+  String get editNote;
+
+  /// No description provided for @noteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your thoughts here...'**
+  String get noteHint;
+
+  /// No description provided for @saveButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get saveButton;
+
+  /// No description provided for @cancelButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancelButton;
+
+  /// No description provided for @noNotesYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No notes yet. Tap the edit icon to add one!'**
+  String get noNotesYet;
+
+  /// No description provided for @shareHoroscope.
+  ///
+  /// In en, this message translates to:
+  /// **'Share Horoscope'**
+  String get shareHoroscope;
+
+  /// No description provided for @shareSubject.
+  ///
+  /// In en, this message translates to:
+  /// **'My Horoscope from Astrology AI!'**
+  String get shareSubject;
+
   /// No description provided for @premiumUpgrade.
   ///
   /// In en, this message translates to:
-  /// **'Upgrade to Premium for deeper analysis on health and other aspects!'**
+  /// **'This is a basic reading. For a deeper analysis including Health, get a Premium Horoscope!'**
   String get premiumUpgrade;
+
+  /// No description provided for @libraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Astrology Library'**
+  String get libraryTitle;
+
+  /// No description provided for @librarySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Explore the mystical terms of astrology. Tap a term to learn more.'**
+  String get librarySubtitle;
+
+  /// No description provided for @compatibilityTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Zodiac Compatibility'**
+  String get compatibilityTitle;
+
+  /// No description provided for @compatibilitySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'See how well two signs match'**
+  String get compatibilitySubtitle;
+
+  /// No description provided for @checkButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Check Compatibility'**
+  String get checkButton;
+
+  /// No description provided for @resultsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Results'**
+  String get resultsTitle;
+
+  /// No description provided for @scoreLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Score'**
+  String get scoreLabel;
+
+  /// No description provided for @summaryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary'**
+  String get summaryLabel;
+
+  /// No description provided for @adviceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Advice'**
+  String get adviceLabel;
 }
 
-class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate
+    extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -243,25 +403,26 @@ class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> 
   }
 
   @override
-  bool isSupported(Locale locale) => <String>['en', 'vi'].contains(locale.languageCode);
+  bool isSupported(Locale locale) =>
+      <String>['en', 'vi'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
-
-
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en': return AppLocalizationsEn();
-    case 'vi': return AppLocalizationsVi();
+    case 'en':
+      return AppLocalizationsEn();
+    case 'vi':
+      return AppLocalizationsVi();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.'
+    'that was used.',
   );
 }

@@ -1,6 +1,8 @@
 import 'dart:convert';
+import 'dart:developer' as developer;
 
 import 'package:flutter/material.dart';
+import 'package:myapp/src/features/history/services/database_helper.dart';
 import 'package:myapp/src/features/horoscope/services/ai_horoscope_service.dart';
 import 'package:myapp/src/features/horoscope/ui/horoscope_result_card.dart';
 import 'package:myapp/src/features/horoscope/ui/widgets/input_field.dart';
@@ -9,7 +11,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/main.dart';
 
-import '../../../../l10n/app_localizations.dart'; // Assuming LanguageProvider is in main.dart
+import '../../../../l10n/app_localizations.dart';
 
 class HoroscopeHomePage extends StatefulWidget {
   const HoroscopeHomePage({super.key});
@@ -24,6 +26,8 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
   final _placeController = TextEditingController();
   bool _isLoading = false;
   Map<String, dynamic>? _horoscopeResult;
+
+  final _aiService = AIHoroscopeService(); // Instantiate the service
 
   @override
   void initState() {
@@ -56,7 +60,6 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
   }
 
   Future<void> _getHoroscope({bool isPremium = false}) async {
-    // Get the localization object first
     final l10n = AppLocalizations.of(context)!;
 
     if (_dateController.text.isEmpty ||
@@ -65,7 +68,7 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(l10n.homePageSubtitle), // Re-using a relevant string
+          content: Text(l10n.errorMissingInput), // Corrected message
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -78,45 +81,44 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
     });
 
     try {
-      final langCode = Provider.of<LanguageProvider>(context, listen: false).locale.languageCode;
+      final langCode =
+          Provider.of<LanguageProvider>(context, listen: false).locale.languageCode;
 
-      final resultString = await getHoroscopeFromAI(
+      // Use the service instance to call the method
+      final resultString = await _aiService.getHoroscopeFromAI(
         date: _dateController.text,
         time: _timeController.text,
         place: _placeController.text,
         isPremium: isPremium,
-        language: langCode, // Pass the language code
+        language: langCode,
       );
       final decodedResult = jsonDecode(resultString);
 
-      if (decodedResult.containsKey('error')) {
-        if (!mounted) return;
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(decodedResult['error'] ?? 'Đã xảy ra lỗi không xác định.'),
-            backgroundColor: Colors.redAccent,
-          ),
-        );
-        setState(() {
-          _isLoading = false;
-        });
-        return;
-      }
+      // Save to database
+      final dbHelper = DatabaseHelper();
+      await dbHelper.insertHoroscope({
+        'date': _dateController.text,
+        'time': _timeController.text,
+        'place': _placeController.text,
+        'result': resultString, // Save the original JSON string
+      });
+      developer.log('Successfully saved horoscope to the database.');
 
-      await _saveBirthInfo(); // Save the info on success
+      await _saveBirthInfo();
 
       setState(() {
         _horoscopeResult = decodedResult;
         _isLoading = false;
       });
-    } catch (e) {
+    } catch (e, s) {
+      developer.log('Error getting or saving horoscope', error: e, stackTrace: s);
       setState(() {
         _isLoading = false;
       });
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
-          content: Text(l10n.appName), // Re-using a relevant string
+          content: Text(l10n.errorFetching), // Use generic error message
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -127,98 +129,79 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          l10n.appName,
-          style: GoogleFonts.sacramento(
-            fontSize: 32,
-            fontWeight: FontWeight.w500,
-          ),
-        ),
-        centerTitle: true,
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        actions: [
-          PopupMenuButton<Locale>(
-            onSelected: (Locale locale) {
-              Provider.of<LanguageProvider>(context, listen: false).setLocale(locale);
-            },
-            itemBuilder: (BuildContext context) => <PopupMenuEntry<Locale>>[
-              PopupMenuItem<Locale>(
-                value: const Locale('vi'),
-                child: Text(l10n.vietnamese),
+    return SingleChildScrollView(
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const SizedBox(height: 20),
+            Text(
+              l10n.homePageTitle,
+              textAlign: TextAlign.center,
+              style: GoogleFonts.playfairDisplay(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: Theme.of(context).textTheme.bodyLarge?.color,
               ),
-              PopupMenuItem<Locale>(
-                value: const Locale('en'),
-                child: Text(l10n.english),
-              ),
-            ],
-            icon: const Icon(Icons.language),
-          ),
-        ],
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              const SizedBox(height: 20),
-              Text(
-                l10n.homePageTitle, // Localized
-                textAlign: TextAlign.center,
-                style: GoogleFonts.playfairDisplay(
-                  fontSize: 28,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
-                ),
-              ),
-              const SizedBox(height: 10),
-              Text(
-                l10n.homePageSubtitle, // Localized
-                textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white70, fontSize: 16),
-              ),
-              const SizedBox(height: 40),
-              InputField(
-                  controller: _dateController, label: l10n.dateOfBirth, hint: l10n.dateOfBirthHint),
-              const SizedBox(height: 20),
-              InputField(
-                  controller: _timeController, label: l10n.timeOfBirth, hint: l10n.timeOfBirthHint),
-              const SizedBox(height: 20),
-              InputField(
-                  controller: _placeController, label: l10n.placeOfBirth, hint: l10n.placeOfBirthHint),
-              const SizedBox(height: 40),
-              _isLoading
-                  ? const Center(child: CircularProgressIndicator())
-                  : Column(
-                      children: [
-                        ElevatedButton(
-                          onPressed: () => _getHoroscope(isPremium: false),
-                          child: Text(l10n.getHoroscopeButton), // Localized
+            ),
+            const SizedBox(height: 10),
+            Text(
+              l10n.homePageSubtitle,
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Theme.of(context)
+                      .textTheme
+                      .bodyMedium
+                      ?.color
+                      ?.withOpacity(0.7),
+                  fontSize: 16),
+            ),
+            const SizedBox(height: 40),
+            InputField(
+                controller: _dateController,
+                label: l10n.dateOfBirth,
+                hint: l10n.dateOfBirthHint),
+            const SizedBox(height: 20),
+            InputField(
+                controller: _timeController,
+                label: l10n.timeOfBirth,
+                hint: l10n.timeOfBirthHint),
+            const SizedBox(height: 20),
+            InputField(
+                controller: _placeController,
+                label: l10n.placeOfBirth,
+                hint: l10n.placeOfBirthHint),
+            const SizedBox(height: 40),
+            _isLoading
+                ? const Center(child: CircularProgressIndicator())
+                : Column(
+                    children: [
+                      ElevatedButton(
+                        onPressed: () => _getHoroscope(isPremium: false),
+                        child: Text(l10n.getHoroscopeButton),
+                      ),
+                      const SizedBox(height: 15),
+                      ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.amber[700],
+                          foregroundColor: Colors.black,
                         ),
-                        const SizedBox(height: 15),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.amber[700],
-                            foregroundColor: Colors.black,
-                          ),
-                          onPressed: () => _getHoroscope(isPremium: true),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.min,
-                            children: [
-                              const Icon(Icons.star, size: 16),
-                              const SizedBox(width: 8),
-                              Text(l10n.getHoroscopeButton), // Localized (re-used)
-                            ],
-                          ),
+                        onPressed: () => _getHoroscope(isPremium: true),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            const Icon(Icons.star, size: 16),
+                            const SizedBox(width: 8),
+                            Text(l10n.getPremiumHoroscopeButton),
+                          ],
                         ),
-                      ],
-                    ),
-              if (_horoscopeResult != null) HoroscopeResultCard(result: _horoscopeResult!),
-            ],
-          ),
+                      ),
+                    ],
+                  ),
+            if (_horoscopeResult != null)
+              HoroscopeResultCard(result: _horoscopeResult!),
+          ],
         ),
       ),
     );
