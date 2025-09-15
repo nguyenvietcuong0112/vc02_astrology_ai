@@ -26,10 +26,7 @@ class DefaultFirebaseOptions {
       case TargetPlatform.android:
         return android;
       case TargetPlatform.iOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for ios - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+        return ios;
       case TargetPlatform.macOS:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for macos - '
@@ -54,10 +51,19 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyDBOAa8EG0ttqEekzgXAqOadxA8M6FjmdA',
-    appId: '1:991464718532:android:ab2d06ba603142be704991',
+    appId: '1:991464718532:android:a55aabef6c449533704991',
     messagingSenderId: '991464718532',
     projectId: 'astrology-ai-app-vnm',
     storageBucket: 'astrology-ai-app-vnm.firebasestorage.app',
+  );
+
+  static const FirebaseOptions ios = FirebaseOptions(
+    apiKey: 'AIzaSyDIsG0sOI_KTvBBaIM_eHn0BD9AqqDUi6o',
+    appId: '1:991464718532:ios:e9d441b08f08c79f704991',
+    messagingSenderId: '991464718532',
+    projectId: 'astrology-ai-app-vnm',
+    storageBucket: 'astrology-ai-app-vnm.firebasestorage.app',
+    iosBundleId: 'com.astrologyai.astrology.myapp',
   );
 
 }

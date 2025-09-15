@@ -1,4 +1,5 @@
 
+import 'package:firebase_app_check/firebase_app_check.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/src/app/app.dart';
@@ -30,11 +31,19 @@ void _handleMessageTerminated(RemoteMessage? message) {
   // Here you could navigate to a specific page based on the message data
 }
 
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  // --- App Check ---
+  // await FirebaseAppCheck.instance
+  // // Your personal reCaptcha public key goes here:
+  //     .activate(
+  //   androidProvider: AndroidProvider.debug,
+  //   appleProvider: AppleProvider.debug,
+  // );
 
   // --- Authentication ---
   await FirebaseAuth.instance.signInAnonymously();

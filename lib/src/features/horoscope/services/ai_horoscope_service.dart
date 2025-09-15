@@ -65,7 +65,7 @@ Future<String> getHoroscopeFromAI(
   try {
     // 2. Initialize the Gemini model using the correct, new syntax
     final googleAI = FirebaseAI.googleAI(auth: FirebaseAuth.instance);
-    final model = googleAI.generativeModel(model: 'gemini-1.5-pro');
+    final model = googleAI.generativeModel(model: 'gemini-2.5-splash');
 
     // 3. Generate the content
     final response = await model.generateContent([Content.text(prompt)]);
