@@ -6,7 +6,6 @@ import 'package:myapp/src/features/horoscope/ui/horoscope_result_card.dart';
 import 'package:myapp/src/features/horoscope/ui/widgets/input_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HoroscopeHomePage extends StatefulWidget {
   const HoroscopeHomePage({super.key});
@@ -53,14 +52,13 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
   }
 
   Future<void> _getHoroscope({bool isPremium = false}) async {
-    final l10n = AppLocalizations.of(context)!;
     if (_dateController.text.isEmpty ||
         _timeController.text.isEmpty ||
         _placeController.text.isEmpty) {
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.enterCompleteBirthInfo),
+        const SnackBar(
+          content: Text("Vui lòng nhập đầy đủ thông tin ngày sinh."),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -85,7 +83,7 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
         if (!mounted) return;
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
-            content: Text(decodedResult['error'] ?? 'An unknown error occurred.'),
+            content: Text(decodedResult['error'] ?? 'Đã xảy ra lỗi không xác định.'),
             backgroundColor: Colors.redAccent,
           ),
         );
@@ -108,8 +106,8 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
       });
       if (!mounted) return;
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text(l10n.errorOccurred),
+        const SnackBar(
+          content: Text("Đã xảy ra lỗi. Vui lòng thử lại."),
           backgroundColor: Colors.redAccent,
         ),
       );
@@ -118,12 +116,10 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
-
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Astrology AI Assistant',
+          'Trợ lý Chiêm tinh AI',
           style: GoogleFonts.sacramento(
             fontSize: 32,
             fontWeight: FontWeight.w500,
@@ -141,7 +137,7 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
             children: [
               const SizedBox(height: 20),
               Text(
-                l10n.discoverCosmicPath,
+                "Khám phá con đường vũ trụ của bạn",
                 textAlign: TextAlign.center,
                 style: GoogleFonts.playfairDisplay(
                   fontSize: 28,
@@ -150,20 +146,20 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
                 ),
               ),
               const SizedBox(height: 10),
-              Text(
-                l10n.enterBirthDetails,
+              const Text(
+                "Nhập thông tin ngày sinh của bạn để có được lá số tử vi được cá nhân hóa.",
                 textAlign: TextAlign.center,
-                style: const TextStyle(color: Colors.white70, fontSize: 16),
+                style: TextStyle(color: Colors.white70, fontSize: 16),
               ),
               const SizedBox(height: 40),
               InputField(
-                  controller: _dateController, label: l10n.dateOfBirth, hint: l10n.dateOfBirthHint),
+                  controller: _dateController, label: "Ngày sinh", hint: "DD/MM/YYYY"),
               const SizedBox(height: 20),
               InputField(
-                  controller: _timeController, label: l10n.timeOfBirth, hint: l10n.timeOfBirthHint),
+                  controller: _timeController, label: "Giờ sinh", hint: "HH:MM"),
               const SizedBox(height: 20),
               InputField(
-                  controller: _placeController, label: l10n.placeOfBirth, hint: l10n.placeOfBirthHint),
+                  controller: _placeController, label: "Nơi sinh", hint: "Thành phố, Quốc gia"),
               const SizedBox(height: 40),
               _isLoading
                   ? const Center(child: CircularProgressIndicator())
@@ -171,7 +167,7 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
                       children: [
                         ElevatedButton(
                           onPressed: () => _getHoroscope(isPremium: false),
-                          child: Text(l10n.revealHoroscope),
+                          child: const Text("Xem lá số tử vi"),
                         ),
                         const SizedBox(height: 15),
                         ElevatedButton(
@@ -180,12 +176,12 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
                             foregroundColor: Colors.black,
                           ),
                           onPressed: () => _getHoroscope(isPremium: true),
-                          child: Row(
+                          child: const Row(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              const Icon(Icons.star, size: 16),
-                              const SizedBox(width: 8),
-                              Text(l10n.revealPremiumHoroscope),
+                              Icon(Icons.star, size: 16),
+                              SizedBox(width: 8),
+                              Text("Xem lá số tử vi cao cấp"),
                             ],
                           ),
                         ),

@@ -7,7 +7,7 @@ This is a Flutter application that provides personalized horoscopes to users bas
 ## Features
 
 -   Users can enter their date, time, and place of birth.
--   **The application saves the user's birth information for future use.**
+-   The application saves the user's birth information for future use.
 -   The application generates a personalized horoscope using the Gemini API.
 -   The application supports both a standard and a premium horoscope.
 -   The application has a dark and a light theme.
@@ -26,13 +26,10 @@ This is a Flutter application that provides personalized horoscopes to users bas
 -   `lib/src/features/horoscope/ui/widgets/input_field.dart`: A custom text field widget.
 -   `lib/src/features/horoscope/ui/widgets/result_section.dart`: A widget to display a section of the horoscope result.
 
-## Current Task: Implement Push Notifications and User Authentication
+## Current Task: Remove Localization
 
-I have added the following features:
-1.  **Push Notifications:**
-    -   Added the `firebase_messaging` package.
-    -   Configured the Android and iOS projects to support push notifications.
-    -   Implemented logic in `lib/main.dart` to request permission, handle incoming messages, and retrieve the FCM token.
-2.  **User Authentication:**
-    -   I will be using Firebase Authentication to allow users to sign in.
-    -   The user's birth information will be stored in Cloud Firestore and linked to their account.
+I will perform the following steps to remove the localization feature:
+1.  **Update `pubspec.yaml`**: Remove the `flutter_localizations` dependency and the `generate: true` flag.
+2.  **Delete Localization Files**: Delete the `l10n.yaml` file and the `lib/l10n` directory.
+3.  **Update Application Code**: Remove all references to `AppLocalizations` and replace them with hard-coded Vietnamese strings throughout the application, primarily in the UI files.
+4.  **Refactor `MaterialApp`**: Remove the `localizationsDelegates` and `supportedLocales` properties from the `MaterialApp` widget in `lib/src/app/app.dart`.

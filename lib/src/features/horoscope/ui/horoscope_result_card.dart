@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/features/horoscope/ui/widgets/result_section.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class HoroscopeResultCard extends StatelessWidget {
   final Map<String, dynamic> result;
@@ -9,27 +8,29 @@ class HoroscopeResultCard extends StatelessWidget {
   const HoroscopeResultCard({super.key, required this.result});
 
   void _shareHoroscope(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final String overview = result['overview'] ?? '';
     final String love = result['love'] ?? '';
     final String career = result['career'] ?? '';
     final String finance = result['finance'] ?? '';
     final String advice = result['advice'] ?? '';
 
-    final String shareText = l10n.horoscopeResult(
-      love: love,
-      career: career,
-      finance: finance,
-      advice: advice,
-      overview: overview,
-    );
+    final String shareText = """
+    🌟 Tổng quan: $overview
+
+    💖 Tình yêu: $love
+
+    💼 Sự nghiệp: $career
+
+    💰 Tài chính: $finance
+
+    🧘‍♂️ Lời khuyên: $advice
+    """;
 
     Share.share(shareText);
   }
 
   @override
   Widget build(BuildContext context) {
-    final l10n = AppLocalizations.of(context)!;
     final bool isPremiumResult = result.containsKey('health');
 
     return Card(
@@ -44,21 +45,21 @@ class HoroscopeResultCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            ResultSection(title: '🌟 ${l10n.overview}', content: result['overview'] ?? '...'),
-            ResultSection(title: '💖 ${l10n.love}', content: result['love'] ?? '...'),
-            ResultSection(title: '💼 ${l10n.career}', content: result['career'] ?? '...'),
-            ResultSection(title: '💰 ${l10n.finance}', content: result['finance'] ?? '...'),
+            ResultSection(title: '🌟 Tổng quan', content: result['overview'] ?? '...'),
+            ResultSection(title: '💖 Tình yêu', content: result['love'] ?? '...'),
+            ResultSection(title: '💼 Sự nghiệp', content: result['career'] ?? '...'),
+            ResultSection(title: '💰 Tài chính', content: result['finance'] ?? '...'),
             if (isPremiumResult)
-              ResultSection(title: '⚕️ ${l10n.health}', content: result['health'] ?? '...'),
+              ResultSection(title: '⚕️ Sức khỏe', content: result['health'] ?? '...'),
             if (isPremiumResult)
-              ResultSection(title: '🔮 ${l10n.deeperAnalysis}', content: result['deeper_analysis'] ?? '...'),
-            ResultSection(title: '🧘‍♂️ ${l10n.advice}', content: result['advice'] ?? '...'),
+              ResultSection(title: '🔮 Phân tích chuyên sâu', content: result['deeper_analysis'] ?? '...'),
+            ResultSection(title: '🧘‍♂️ Lời khuyên', content: result['advice'] ?? '...'),
             const SizedBox(height: 20),
             Center(
               child: ElevatedButton.icon(
                 onPressed: () => _shareHoroscope(context),
                 icon: const Icon(Icons.share, size: 16),
-                label: Text(l10n.shareHoroscope),
+                label: const Text("Chia sẻ lá số"),
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.deepPurpleAccent,
                   foregroundColor: Colors.white,
@@ -69,7 +70,7 @@ class HoroscopeResultCard extends StatelessWidget {
               const SizedBox(height: 15),
               Center(
                 child: Text(
-                  l10n.upgradeToPremium,
+                  "Nâng cấp lên Premium để có phân tích sâu hơn về sức khỏe và các khía cạnh khác!",
                   textAlign: TextAlign.center,
                   style: TextStyle(color: Colors.deepPurpleAccent[100], fontSize: 14),
                 ),
