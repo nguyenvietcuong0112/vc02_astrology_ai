@@ -15,8 +15,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get homePageTitle => 'Your Horoscope';
 
   @override
-  String get homePageSubtitle =>
-      'Enter your birth information to get your personalized horoscope.';
+  String get homePageSubtitle => 'Enter your birth information to get your personalized horoscope.';
 
   @override
   String get dateOfBirth => 'Date of Birth';
@@ -76,6 +75,5 @@ class AppLocalizationsEn extends AppLocalizations {
   String get deeperAnalysis => 'Deeper Analysis';
 
   @override
-  String get premiumUpgrade =>
-      'Upgrade to Premium for deeper analysis on health and other aspects!';
+  String get premiumUpgrade => 'Upgrade to Premium for deeper analysis on health and other aspects!';
 }

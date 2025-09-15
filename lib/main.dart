@@ -6,10 +6,11 @@ import 'package:myapp/src/core/theme/app_theme.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+
+import 'l10n/app_localizations.dart';
 
 // --- Language Provider ---
 class LanguageProvider with ChangeNotifier {

@@ -15,8 +15,7 @@ class AppLocalizationsVi extends AppLocalizations {
   String get homePageTitle => 'Tử Vi Của Bạn';
 
   @override
-  String get homePageSubtitle =>
-      'Nhập thông tin ngày sinh của bạn để có được lá số tử vi được cá nhân hóa.';
+  String get homePageSubtitle => 'Nhập thông tin ngày sinh của bạn để có được lá số tử vi được cá nhân hóa.';
 
   @override
   String get dateOfBirth => 'Ngày sinh';
@@ -76,6 +75,5 @@ class AppLocalizationsVi extends AppLocalizations {
   String get deeperAnalysis => 'Phân tích chuyên sâu';
 
   @override
-  String get premiumUpgrade =>
-      'Nâng cấp lên Premium để có phân tích sâu hơn về sức khỏe và các khía cạnh khác!';
+  String get premiumUpgrade => 'Nâng cấp lên Premium để có phân tích sâu hơn về sức khỏe và các khía cạnh khác!';
 }

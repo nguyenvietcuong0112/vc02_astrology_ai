@@ -7,8 +7,9 @@ import 'package:myapp/src/features/horoscope/ui/widgets/input_field.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:provider/provider.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:myapp/main.dart'; // Assuming LanguageProvider is in main.dart
+import 'package:myapp/main.dart';
+
+import '../../../../l10n/app_localizations.dart'; // Assuming LanguageProvider is in main.dart
 
 class HoroscopeHomePage extends StatefulWidget {
   const HoroscopeHomePage({super.key});

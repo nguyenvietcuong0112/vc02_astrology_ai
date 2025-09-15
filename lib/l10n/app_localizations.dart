@@ -62,8 +62,7 @@ import 'app_localizations_vi.dart';
 /// be consistent with the languages listed in the AppLocalizations.supportedLocales
 /// property.
 abstract class AppLocalizations {
-  AppLocalizations(String locale)
-    : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
 
   final String localeName;
 
@@ -71,8 +70,7 @@ abstract class AppLocalizations {
     return Localizations.of<AppLocalizations>(context, AppLocalizations);
   }
 
-  static const LocalizationsDelegate<AppLocalizations> delegate =
-      _AppLocalizationsDelegate();
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
 
   /// A list of this localizations delegate along with the default localizations
   /// delegates.
@@ -84,161 +82,159 @@ abstract class AppLocalizations {
   /// Additional delegates can be added by appending to this list in
   /// MaterialApp. This list does not have to be used at all if a custom list
   /// of delegates is preferred or required.
-  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates =
-      <LocalizationsDelegate<dynamic>>[
-        delegate,
-        GlobalMaterialLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-      ];
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
 
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[
     Locale('en'),
-    Locale('vi'),
+    Locale('vi')
   ];
 
   /// No description provided for @appName.
   ///
-  /// In vi, this message translates to:
-  /// **'Chiêm Tinh AI'**
+  /// In en, this message translates to:
+  /// **'Astro AI'**
   String get appName;
 
   /// No description provided for @homePageTitle.
   ///
-  /// In vi, this message translates to:
-  /// **'Tử Vi Của Bạn'**
+  /// In en, this message translates to:
+  /// **'Your Horoscope'**
   String get homePageTitle;
 
   /// No description provided for @homePageSubtitle.
   ///
-  /// In vi, this message translates to:
-  /// **'Nhập thông tin ngày sinh của bạn để có được lá số tử vi được cá nhân hóa.'**
+  /// In en, this message translates to:
+  /// **'Enter your birth information to get your personalized horoscope.'**
   String get homePageSubtitle;
 
   /// No description provided for @dateOfBirth.
   ///
-  /// In vi, this message translates to:
-  /// **'Ngày sinh'**
+  /// In en, this message translates to:
+  /// **'Date of Birth'**
   String get dateOfBirth;
 
   /// No description provided for @dateOfBirthHint.
   ///
-  /// In vi, this message translates to:
+  /// In en, this message translates to:
   /// **'DD/MM/YYYY'**
   String get dateOfBirthHint;
 
   /// No description provided for @timeOfBirth.
   ///
-  /// In vi, this message translates to:
-  /// **'Giờ sinh'**
+  /// In en, this message translates to:
+  /// **'Time of Birth'**
   String get timeOfBirth;
 
   /// No description provided for @timeOfBirthHint.
   ///
-  /// In vi, this message translates to:
+  /// In en, this message translates to:
   /// **'HH:MM'**
   String get timeOfBirthHint;
 
   /// No description provided for @placeOfBirth.
   ///
-  /// In vi, this message translates to:
-  /// **'Nơi sinh'**
+  /// In en, this message translates to:
+  /// **'Place of Birth'**
   String get placeOfBirth;
 
   /// No description provided for @placeOfBirthHint.
   ///
-  /// In vi, this message translates to:
-  /// **'Thành phố, Quốc gia'**
+  /// In en, this message translates to:
+  /// **'City, Country'**
   String get placeOfBirthHint;
 
   /// No description provided for @getHoroscopeButton.
   ///
-  /// In vi, this message translates to:
-  /// **'Xem Tử Vi'**
+  /// In en, this message translates to:
+  /// **'Get Horoscope'**
   String get getHoroscopeButton;
 
   /// No description provided for @language.
   ///
-  /// In vi, this message translates to:
-  /// **'Ngôn ngữ'**
+  /// In en, this message translates to:
+  /// **'Language'**
   String get language;
 
   /// No description provided for @vietnamese.
   ///
-  /// In vi, this message translates to:
-  /// **'Tiếng Việt'**
+  /// In en, this message translates to:
+  /// **'Vietnamese'**
   String get vietnamese;
 
   /// No description provided for @english.
   ///
-  /// In vi, this message translates to:
-  /// **'Tiếng Anh'**
+  /// In en, this message translates to:
+  /// **'English'**
   String get english;
 
   /// No description provided for @shareHoroscope.
   ///
-  /// In vi, this message translates to:
-  /// **'Chia sẻ Tử Vi'**
+  /// In en, this message translates to:
+  /// **'Share Horoscope'**
   String get shareHoroscope;
 
   /// No description provided for @shareSubject.
   ///
-  /// In vi, this message translates to:
-  /// **'Tử vi hàng ngày của tôi!'**
+  /// In en, this message translates to:
+  /// **'My daily horoscope!'**
   String get shareSubject;
 
   /// No description provided for @overview.
   ///
-  /// In vi, this message translates to:
-  /// **'Tổng quan'**
+  /// In en, this message translates to:
+  /// **'Overview'**
   String get overview;
 
   /// No description provided for @love.
   ///
-  /// In vi, this message translates to:
-  /// **'Tình yêu'**
+  /// In en, this message translates to:
+  /// **'Love'**
   String get love;
 
   /// No description provided for @career.
   ///
-  /// In vi, this message translates to:
-  /// **'Sự nghiệp'**
+  /// In en, this message translates to:
+  /// **'Career'**
   String get career;
 
   /// No description provided for @finance.
   ///
-  /// In vi, this message translates to:
-  /// **'Tài chính'**
+  /// In en, this message translates to:
+  /// **'Finance'**
   String get finance;
 
   /// No description provided for @advice.
   ///
-  /// In vi, this message translates to:
-  /// **'Lời khuyên'**
+  /// In en, this message translates to:
+  /// **'Advice'**
   String get advice;
 
   /// No description provided for @health.
   ///
-  /// In vi, this message translates to:
-  /// **'Sức khỏe'**
+  /// In en, this message translates to:
+  /// **'Health'**
   String get health;
 
   /// No description provided for @deeperAnalysis.
   ///
-  /// In vi, this message translates to:
-  /// **'Phân tích chuyên sâu'**
+  /// In en, this message translates to:
+  /// **'Deeper Analysis'**
   String get deeperAnalysis;
 
   /// No description provided for @premiumUpgrade.
   ///
-  /// In vi, this message translates to:
-  /// **'Nâng cấp lên Premium để có phân tích sâu hơn về sức khỏe và các khía cạnh khác!'**
+  /// In en, this message translates to:
+  /// **'Upgrade to Premium for deeper analysis on health and other aspects!'**
   String get premiumUpgrade;
 }
 
-class _AppLocalizationsDelegate
-    extends LocalizationsDelegate<AppLocalizations> {
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
   const _AppLocalizationsDelegate();
 
   @override
@@ -247,26 +243,25 @@ class _AppLocalizationsDelegate
   }
 
   @override
-  bool isSupported(Locale locale) =>
-      <String>['en', 'vi'].contains(locale.languageCode);
+  bool isSupported(Locale locale) => <String>['en', 'vi'].contains(locale.languageCode);
 
   @override
   bool shouldReload(_AppLocalizationsDelegate old) => false;
 }
 
 AppLocalizations lookupAppLocalizations(Locale locale) {
+
+
   // Lookup logic when only language code is specified.
   switch (locale.languageCode) {
-    case 'en':
-      return AppLocalizationsEn();
-    case 'vi':
-      return AppLocalizationsVi();
+    case 'en': return AppLocalizationsEn();
+    case 'vi': return AppLocalizationsVi();
   }
 
   throw FlutterError(
     'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
     'an issue with the localizations generation tool. Please file an issue '
     'on GitHub with a reproducible sample app and the gen-l10n configuration '
-    'that was used.',
+    'that was used.'
   );
 }

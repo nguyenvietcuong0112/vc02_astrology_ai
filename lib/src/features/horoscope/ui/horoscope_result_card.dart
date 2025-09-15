@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/src/features/horoscope/ui/widgets/result_section.dart';
 import 'package:share_plus/share_plus.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
+import '../../../../l10n/app_localizations.dart';
 
 class HoroscopeResultCard extends StatelessWidget {
   final Map<String, dynamic> result;
