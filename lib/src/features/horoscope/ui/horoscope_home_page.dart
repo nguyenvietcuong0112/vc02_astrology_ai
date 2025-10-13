@@ -129,79 +129,82 @@ class _HoroscopeHomePageState extends State<HoroscopeHomePage> {
   Widget build(BuildContext context) {
     final l10n = AppLocalizations.of(context)!;
 
-    return SingleChildScrollView(
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            const SizedBox(height: 20),
-            Text(
-              l10n.homePageTitle,
-              textAlign: TextAlign.center,
-              style: GoogleFonts.playfairDisplay(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Theme.of(context).textTheme.bodyLarge?.color,
+    return Container(
+      color: Colors.black,
+      child: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              const SizedBox(height: 20),
+              Text(
+                l10n.homePageTitle,
+                textAlign: TextAlign.center,
+                style: GoogleFonts.playfairDisplay(
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Theme.of(context).textTheme.bodyLarge?.color,
+                ),
               ),
-            ),
-            const SizedBox(height: 10),
-            Text(
-              l10n.homePageSubtitle,
-              textAlign: TextAlign.center,
-              style: TextStyle(
-                  color: Theme.of(context)
-                      .textTheme
-                      .bodyMedium
-                      ?.color
-                      ?.withOpacity(0.7),
-                  fontSize: 16),
-            ),
-            const SizedBox(height: 40),
-            InputField(
-                controller: _dateController,
-                label: l10n.dateOfBirth,
-                hint: l10n.dateOfBirthHint),
-            const SizedBox(height: 20),
-            InputField(
-                controller: _timeController,
-                label: l10n.timeOfBirth,
-                hint: l10n.timeOfBirthHint),
-            const SizedBox(height: 20),
-            InputField(
-                controller: _placeController,
-                label: l10n.placeOfBirth,
-                hint: l10n.placeOfBirthHint),
-            const SizedBox(height: 40),
-            _isLoading
-                ? const Center(child: CircularProgressIndicator())
-                : Column(
-                    children: [
-                      ElevatedButton(
-                        onPressed: () => _getHoroscope(isPremium: false),
-                        child: Text(l10n.getHoroscopeButton),
-                      ),
-                      const SizedBox(height: 15),
-                      ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.amber[700],
-                          foregroundColor: Colors.black,
+              const SizedBox(height: 10),
+              Text(
+                l10n.homePageSubtitle,
+                textAlign: TextAlign.center,
+                style: TextStyle(
+                    color: Theme.of(context)
+                        .textTheme
+                        .bodyMedium
+                        ?.color
+                        ?.withOpacity(0.7),
+                    fontSize: 16),
+              ),
+              const SizedBox(height: 40),
+              InputField(
+                  controller: _dateController,
+                  label: l10n.dateOfBirth,
+                  hint: l10n.dateOfBirthHint),
+              const SizedBox(height: 20),
+              InputField(
+                  controller: _timeController,
+                  label: l10n.timeOfBirth,
+                  hint: l10n.timeOfBirthHint),
+              const SizedBox(height: 20),
+              InputField(
+                  controller: _placeController,
+                  label: l10n.placeOfBirth,
+                  hint: l10n.placeOfBirthHint),
+              const SizedBox(height: 40),
+              _isLoading
+                  ? const Center(child: CircularProgressIndicator())
+                  : Column(
+                      children: [
+                        ElevatedButton(
+                          onPressed: () => _getHoroscope(isPremium: false),
+                          child: Text(l10n.getHoroscopeButton),
                         ),
-                        onPressed: () => _getHoroscope(isPremium: true),
-                        child: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            const Icon(Icons.star, size: 16),
-                            const SizedBox(width: 8),
-                            Text(l10n.getPremiumHoroscopeButton),
-                          ],
+                        const SizedBox(height: 15),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.amber[700],
+                            foregroundColor: Colors.black,
+                          ),
+                          onPressed: () => _getHoroscope(isPremium: true),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              const Icon(Icons.star, size: 16),
+                              const SizedBox(width: 8),
+                              Text(l10n.getPremiumHoroscopeButton),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-            if (_horoscopeResult != null)
-              HoroscopeResultCard(result: _horoscopeResult!),
-          ],
+                      ],
+                    ),
+              if (_horoscopeResult != null)
+                HoroscopeResultCard(result: _horoscopeResult!),
+            ],
+          ),
         ),
       ),
     );

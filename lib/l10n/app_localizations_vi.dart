@@ -159,4 +159,13 @@ class AppLocalizationsVi extends AppLocalizations {
 
   @override
   String get adviceLabel => 'Lời khuyên';
+
+  @override
+  String get homeTab => 'Trang chủ';
+
+  @override
+  String get historyTab => 'Lịch sử';
+
+  @override
+  String get libraryTab => 'Thư viện';
 }

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:myapp/l10n/app_localizations.dart';
+
+import '../../../l10n/app_localizations.dart';
 
 class MainAppShell extends StatefulWidget {
   final Widget child;
@@ -49,12 +50,12 @@ class _MainAppShellState extends State<MainAppShell> {
           BottomNavigationBarItem(
             icon: const Icon(Icons.wb_sunny_outlined),
             activeIcon: const Icon(Icons.wb_sunny),
-            label: l10n.horoscopeTitle,
+            label: "l10n.horoscopeTitle",
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.history_outlined),
             activeIcon: const Icon(Icons.history),
-            label: l10n.historyTitle,
+            label: "l10n.historyTitle",
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.menu_book_outlined),

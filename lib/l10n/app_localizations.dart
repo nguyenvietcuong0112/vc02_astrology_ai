@@ -391,6 +391,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Advice'**
   String get adviceLabel;
+
+  /// No description provided for @homeTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get homeTab;
+
+  /// No description provided for @historyTab.
+  ///
+  /// In en, this message translates to:
+  /// **'History'**
+  String get historyTab;
+
+  /// No description provided for @libraryTab.
+  ///
+  /// In en, this message translates to:
+  /// **'Library'**
+  String get libraryTab;
 }
 
 class _AppLocalizationsDelegate

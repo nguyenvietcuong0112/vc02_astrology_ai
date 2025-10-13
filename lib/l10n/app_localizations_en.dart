@@ -158,4 +158,13 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adviceLabel => 'Advice';
+
+  @override
+  String get homeTab => 'Home';
+
+  @override
+  String get historyTab => 'History';
+
+  @override
+  String get libraryTab => 'Library';
 }

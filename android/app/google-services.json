@@ -7,6 +7,25 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:991464718532:android:a55aabef6c449533704991",
+        "android_client_info": {
+          "package_name": "com.astrologyai.astrology.future"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDBOAa8EG0ttqEekzgXAqOadxA8M6FjmdA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:991464718532:android:ab2d06ba603142be704991",
         "android_client_info": {
           "package_name": "com.example.myapp"
