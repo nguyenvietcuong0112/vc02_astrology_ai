@@ -59,11 +59,10 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDIsG0sOI_KTvBBaIM_eHn0BD9AqqDUi6o',
-    appId: '1:991464718532:ios:e9d441b08f08c79f704991',
+    appId: '1:991464718532:ios:642344ea7a0701a1704991',
     messagingSenderId: '991464718532',
     projectId: 'astrology-ai-app-vnm',
     storageBucket: 'astrology-ai-app-vnm.firebasestorage.app',
-    iosBundleId: 'com.astrologyai.astrology.myapp',
+    iosBundleId: 'com.astrologyai.astrology.future',
   );
-
 }
