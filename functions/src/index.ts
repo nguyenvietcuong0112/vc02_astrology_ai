@@ -11,7 +11,7 @@ admin.initializeApp();
  * It sends a push notification with a sample horoscope to the
  * 'daily_horoscope' topic.
  */
-export const sendDailyHoroscope = onSchedule("every day 09:00", async () => {
+export const sendDailyHoroscope = onSchedule("every 1 minutes", async () => {
   logger.info("Cron job started: Sending daily horoscope notification.");
 
   // The topic all apps are subscribed to.

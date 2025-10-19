@@ -1,14 +1,10 @@
+# Compiled JavaScript files
+lib/**/*.js
+lib/**/*.js.map
 
-# dependencies
-/node_modules
+# TypeScript v1 declaration files
+typings/
 
-# compiled code
-/lib
-
-# logs
-npm-debug.log
-yarn-debug.log
-yarn-error.log
-
-# environment variables
-.env
+# Node.js dependency directory
+node_modules/
+*.local
