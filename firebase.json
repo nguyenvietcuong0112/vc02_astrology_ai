@@ -1,1 +1,45 @@
-{"flutter":{"platforms":{"android":{"default":{"projectId":"astrology-ai-app-vnm","appId":"1:991464718532:android:a55aabef6c449533704991","fileOutput":"android/app/google-services.json"}},"ios":{"default":{"projectId":"astrology-ai-app-vnm","appId":"1:991464718532:ios:642344ea7a0701a1704991","uploadDebugSymbols":false,"fileOutput":"ios/Runner/GoogleService-Info.plist"}},"dart":{"lib/firebase_options.dart":{"projectId":"astrology-ai-app-vnm","configurations":{"android":"1:991464718532:android:a55aabef6c449533704991","ios":"1:991464718532:ios:642344ea7a0701a1704991"}}}}}}
+{
+  "flutter": {
+    "platforms": {
+      "android": {
+        "default": {
+          "projectId": "astrology-ai-app-vnm",
+          "appId": "1:991464718532:android:a55aabef6c449533704991",
+          "fileOutput": "android/app/google-services.json"
+        }
+      },
+      "ios": {
+        "default": {
+          "projectId": "astrology-ai-app-vnm",
+          "appId": "1:991464718532:ios:642344ea7a0701a1704991",
+          "uploadDebugSymbols": false,
+          "fileOutput": "ios/Runner/GoogleService-Info.plist"
+        }
+      },
+      "dart": {
+        "lib/firebase_options.dart": {
+          "projectId": "astrology-ai-app-vnm",
+          "configurations": {
+            "android": "1:991464718532:android:a55aabef6c449533704991",
+            "ios": "1:991464718532:ios:642344ea7a0701a1704991"
+          }
+        }
+      }
+    }
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "codebase": "default",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": [
+      ]
+    }
+  ]
+}

@@ -15,7 +15,7 @@ class AIHoroscopeService {
   Future<String> _generateContent(String prompt) async {
     try {
       final googleAI = FirebaseAI.googleAI(auth: FirebaseAuth.instance);
-      final model = googleAI.generativeModel(model: 'gemini-1.5-flash');
+      final model = googleAI.generativeModel(model: 'gemini-2.5-flash');
 
       final response = await model.generateContent([Content.text(prompt)]);
       final cleanResponse = response.text?.replaceAll('```json', '').replaceAll('```', '').trim();
