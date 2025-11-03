@@ -7,7 +7,7 @@ import * as admin from "firebase-admin";
 admin.initializeApp();
 
 /**
- * A scheduled function that runs every day at 9:00 AM.
+ * A scheduled function that runs every 1 minute for testing purposes.
  * It sends a push notification with a sample horoscope to the
  * 'daily_horoscope' topic.
  */
