@@ -7,36 +7,25 @@ import * as admin from "firebase-admin";
 admin.initializeApp();
 
 /**
- * A scheduled function that runs every 1 minute for testing purposes.
- * It sends a push notification with a sample horoscope to the
- * 'daily_horoscope' topic.
- */
+* A scheduled function that runs every 1 minute for testing purposes.
+* It sends a push notification with a sample horoscope to the
+* 'daily_horoscope' topic.
+*/
 export const sendDailyHoroscope = onSchedule("every 1 minutes", async () => {
   logger.info("Cron job started: Sending daily horoscope notification.");
 
-  // The topic all apps are subscribed to.
-  const topic = "daily_horoscope";
-
-  // --- Get today's horoscope data (replace with your actual logic) ---
-  // In a real app, you would fetch this from an API, a database,
-  // or use a generative AI model. For now, we'll use a sample message.
-  const horoscopeMessage = "Hôm nay là một ngày tuyệt vời để bắt đầu " +
-    "những dự án mới. Năng lượng của bạn đang ở mức cao nhất!";
-  // ---
-
-  const message = {
+  const payload = {
     notification: {
-      title: "✨ Tử Vi Hàng Ngày Của Bạn ✨",
-      body: horoscopeMessage,
+      title: "Tử vi hàng ngày của bạn đã đến!",
+      body: "Hãy mở ứng dụng để khám phá những điều các vì sao nói về bạn hôm nay.",
     },
-    topic: topic,
+    topic: "daily_horoscope",
   };
 
   try {
-    // Send the message to the topic.
-    const response = await admin.messaging().send(message);
-    logger.info("Successfully sent message:", response);
+    const response = await admin.messaging().send(payload);
+    logger.info("Successfully sent daily horoscope notification:", response);
   } catch (error) {
-    logger.error("Error sending message:", error);
+    logger.error("Error sending daily horoscope notification:", error);
   }
 });

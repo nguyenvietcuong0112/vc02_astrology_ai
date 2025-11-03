@@ -7,6 +7,7 @@
   packages = [
     pkgs.jdk21
     pkgs.unzip
+    pkgs.nodejs-22_x
   ];
   # Sets environment variables in the workspace
   env = {};
