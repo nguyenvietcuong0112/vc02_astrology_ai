@@ -1,4 +1,3 @@
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:myapp/src/core/router/app_router.dart';
@@ -11,10 +10,12 @@ import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 import 'l10n/app_localizations.dart';
+import 'package:flutter/foundation.dart'; // 👈 thêm dòng này ở đầu file
 
 // --- Language Provider ---
 class LanguageProvider with ChangeNotifier {
   Locale _locale = const Locale('vi');
+
   Locale get locale => _locale;
 
   void setLocale(Locale locale) {
@@ -23,7 +24,6 @@ class LanguageProvider with ChangeNotifier {
     notifyListeners();
   }
 }
-
 
 // --- Handlers ---
 
@@ -46,12 +46,9 @@ void _handleMessageTerminated(RemoteMessage? message) {
   // Here you could navigate to a specific page based on the message data
 }
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   // --- Authentication ---
   await FirebaseAuth.instance.signInAnonymously();
@@ -84,11 +81,8 @@ void main() async {
   });
 
   // --- Permissions ---
-  await fcm.requestPermission(
-    alert: true,
-    badge: true,
-    sound: true,
-  );
+  // --- Permissions ---
+  await fcm.requestPermission(alert: true, badge: true, sound: true);
 
   await fcm.setForegroundNotificationPresentationOptions(
     alert: true,
@@ -96,16 +90,26 @@ void main() async {
     sound: true,
   );
 
-  // --- Topic Subscription ---
-  const topic = 'daily_horoscope';
-  await fcm.subscribeToTopic(topic);
-  print('Subscribed to topic: $topic');
+  // --- Wait for APNs token (iOS only) ---
+  String? apnsToken;
+  if (defaultTargetPlatform == TargetPlatform.iOS) {
+    apnsToken = await fcm.getAPNSToken();
+    int retry = 0;
+    while (apnsToken == null && retry < 5) {
+      print('⏳ Waiting for APNs token...');
+      await Future.delayed(const Duration(seconds: 2));
+      apnsToken = await fcm.getAPNSToken();
+      retry++;
+    }
+  }
 
-
-  // --- FCM Token (Optional for topic-based sending) ---
-  final fcmToken = await fcm.getToken();
-  print('FCM Token: $fcmToken');
-
+  if (apnsToken != null || defaultTargetPlatform != TargetPlatform.iOS) {
+    const topic = 'daily_horoscope';
+    await fcm.subscribeToTopic(topic);
+    print('✅ Subscribed to topic: $topic');
+  } else {
+    print('⚠️ Could not get APNs token, skip subscribing for now');
+  }
 
   runApp(
     MultiProvider(
